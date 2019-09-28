@@ -10,10 +10,14 @@ import java.awt.event.*;
  * github : https://github.com/CodeLiuPu/
  */
 public class TankFrame extends Frame {
-    int x = 200;
-    int y = 200;
 
-    Graphics graphics;
+    private int x = 200;
+    private int y = 200;
+
+    private int width = 50;
+    private int height = 50;
+
+    private int speed = 10;
 
     public TankFrame() {
         setSize(800, 600);
@@ -34,25 +38,66 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        this.graphics = g;
         System.out.println("paint x =" + x + " y = " + y);
-        g.fillRect(x, y, 50, 50);
-        x += 100;
-        y += 100;
+        g.fillRect(x, y, width, height);
     }
-
 
     private class TankKeyListener extends KeyAdapter {
 
+        boolean bL = false;
+        boolean bR = false;
+        boolean bU = false;
+        boolean bD = false;
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("keyPressed");
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.VK_LEFT:
+                    bL = true;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = true;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = true;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD = true;
+                    break;
+            }
+
+            if (bL && !bR) {
+                x -= speed;
+            } else if (bR && !bL) {
+                x += speed;
+            }
+            if (bU && !bD) {
+                y -= speed;
+            } else if (bD && !bU) {
+                y += speed;
+            }
+
+            repaint();
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("keyReleased");
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.VK_LEFT:
+                    bL = false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    bR = false;
+                    break;
+                case KeyEvent.VK_UP:
+                    bU = false;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    bD = false;
+                    break;
+            }
         }
     }
 }
