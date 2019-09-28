@@ -11,8 +11,12 @@ import java.awt.event.WindowEvent;
  * github : https://github.com/CodeLiuPu/
  */
 public class TankFrame extends Frame {
-    public TankFrame(){
-        setSize(800,600);
+    int x = 200;
+    int y = 200;
+
+    Graphics graphics;
+    public TankFrame() {
+        setSize(800, 600);
         setResizable(false);
         setTitle("Tank War");
         setVisible(true);
@@ -29,6 +33,18 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        this.graphics = g;
+        System.out.println("paint x =" + x + " y = " + y);
+        g.fillRect(x, y, 50, 50);
+//        x+=100;
+//        y+=100;
+    }
+
+    public void moveeee(int x,int y){
+        System.out.println("moveeee x =" + x + " y = " + y);
+        this.x = x;
+        this.y = y;
+        this.paint(graphics);
 
     }
 }
