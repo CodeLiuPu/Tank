@@ -1,8 +1,7 @@
 package com.update.tank;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 /**
  * @author : liupu
@@ -15,6 +14,7 @@ public class TankFrame extends Frame {
     int y = 200;
 
     Graphics graphics;
+
     public TankFrame() {
         setSize(800, 600);
         setResizable(false);
@@ -28,6 +28,7 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+        addKeyListener(new TankKeyListener());
     }
 
     @Override
@@ -36,15 +37,22 @@ public class TankFrame extends Frame {
         this.graphics = g;
         System.out.println("paint x =" + x + " y = " + y);
         g.fillRect(x, y, 50, 50);
-//        x+=100;
-//        y+=100;
+        x += 100;
+        y += 100;
     }
 
-    public void moveeee(int x,int y){
-        System.out.println("moveeee x =" + x + " y = " + y);
-        this.x = x;
-        this.y = y;
-        this.paint(graphics);
 
+    private class TankKeyListener extends KeyAdapter {
+
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            System.out.println("keyPressed");
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println("keyReleased");
+        }
     }
 }
